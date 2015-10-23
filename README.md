@@ -1,6 +1,6 @@
 # SISMO Prototype v0.1
 
-Experimental game.
+Experimental game. [Try it!](http://acemir.github.io/sismo-game)
 
 ## Installation
 
@@ -125,15 +125,15 @@ you want).
 ```
 
 
-## Based on
+## Pipeline based on
 
 * [Require.js Library Skeleton](https://github.com/sahat/requirejs-library)
 * [Phaser-RequireJS](https://github.com/photonstorm/phaser/tree/master/resources/Project%20Templates/RequireJS)
 * [generator-phaser](https://github.com/julien/generator-phaser)
 * [Phaser JS Boilerplate](https://github.com/luizbills/phaser-boilerplate)
+* [Phaser + RequireJS Boilerplate](https://github.com/chessmasterhong/phaser-requirejs-boilerplate)
 
+<!-- ## Licence
 
-## Licence
-
-Released under the [MIT Licence](LICENCE).
+Released under the [MIT Licence](LICENCE). -->
 
