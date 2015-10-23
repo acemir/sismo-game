@@ -1,9 +1,0 @@
-{
-  "name": "sismo-game",
-  "private": true,
-  "dependencies": {
-    "almond": "^0.3",
-    "phaser": "^2.4",
-    "requirejs": "^2.1.14"
-  }
-}
