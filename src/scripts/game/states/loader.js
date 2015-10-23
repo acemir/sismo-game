@@ -33,9 +33,6 @@ define(['Phaser','MyGame'], function(Phaser, MyGame) {
 
         // Load assets and game object scripts here.
         this.load.image('gametitle', 'media/sprites/gametitle.png');
-        this.load.image('gridedition', 'media/sprites/gridedition.png');
-        this.load.image('playbutton', 'media/sprites/playbutton.png');
-        this.load.image('menubutton', 'media/sprites/menubutton.png');
         this.load.image('resetgame', 'media/sprites/resetgame.png');
         this.load.image('thankyou', 'media/sprites/thankyou.png');
     }

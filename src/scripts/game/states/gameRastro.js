@@ -8,6 +8,7 @@ define(['Phaser','SineWaves','MyGame'], function(Phaser, SineWaves, MyGame) {
     	scoreText, menuGroup,
     	pointParticle,
     	trail, trail1, trail2,
+    	cursors, wasd, shift, touchAmmount,
     	r = 0;
 
     MyGame.GameRastro = function(game) {};
@@ -132,12 +133,47 @@ define(['Phaser','SineWaves','MyGame'], function(Phaser, SineWaves, MyGame) {
 	    
 	    game.time.events.loop(2000, createEnemy, this); 
 	    
+
+	    cursors = game.input.keyboard.createCursorKeys();
+	    wasd = game.input.keyboard.addKeys( { 'up': Phaser.KeyCode.W, 'down': Phaser.KeyCode.S, 'left': Phaser.KeyCode.A, 'right': Phaser.KeyCode.D } );
+	    shift = game.input.keyboard.addKey(Phaser.KeyCode.SHIFT);
+
 	    game.input.mouse.mouseWheelCallback = function(event){
 	         r = r > 360 ? r - 360 : r < 0 ? r + 360 : r + game.input.mouse.wheelDelta*5;
 	         // waves.rotation = r * Math.PI / 180;
 	         waveGroup.angle = r;
 
 	    }
+
+	    game.input.touch.touchStartCallback = function(event){
+	    	touchAmmount = event.touches[0].clientX;
+	    };	    
+
+	    game.input.touch.touchMoveCallback = function(event){
+	    	var ammount = -(touchAmmount - event.touches[0].clientX);
+	    	var rot = r + ammount > 360 ? r + ammount - 360 : r + ammount < 0 ? r + ammount + 360 : r + ammount;
+	    	waveGroup.angle = rot;    
+	    };
+
+	    game.input.touch.touchEndCallback = function(event){
+	    	r = waveGroup.angle;
+	    };
+
+	    game.input.mouse.mouseDownCallback = function(event){
+	    	touchAmmount = event.clientX;
+	    };
+
+	    game.input.mouse.mouseUpCallback = function(event){
+	    	r = waveGroup.angle;
+	    };
+
+		game.input.addMoveCallback(function(pointer, x, y) {
+		  if (pointer.isMouse && pointer.isDown) {
+	    	var ammount = -(touchAmmount - event.clientX);
+	    	var rot = r + ammount > 360 ? r + ammount - 360 : r + ammount < 0 ? r + ammount + 360 : r + ammount;
+	    	waveGroup.angle = rot;
+		  }
+		});
 
           menuGroup = game.add.group();
           menuGroup.alpha = 0;
@@ -146,14 +182,14 @@ define(['Phaser','SineWaves','MyGame'], function(Phaser, SineWaves, MyGame) {
           // menuButton.anchor.set(0.5);
           // menuGroup.add(menuButton);
           
-          var resetGame = game.add.button(game.width / 2, game.height + 50, 'resetgame', function(){
+          var resetGame = game.add.button(game.width / 2, game.height + 80, 'resetgame', function(){
                game.state.start('GameRastro');
           });
           resetGame.anchor.set(0.5);
           resetGame.fixedToCamera = true;
           menuGroup.add(resetGame);
           
-          var thankYou = game.add.button(game.width / 2, game.height + 130, 'thankyou', function(){
+          var thankYou = game.add.button(game.width / 2, game.height + 140, 'thankyou', function(){
           	game.state.start('GameTitle');
           });
           thankYou.anchor.set(0.5);
@@ -205,6 +241,7 @@ define(['Phaser','SineWaves','MyGame'], function(Phaser, SineWaves, MyGame) {
 	  },
 	  update: function(){
 
+
           game.physics.arcade.overlap([playerSprite,playerSpriteLeft,playerSpriteRight], enemyGroup, function(el1,el2){
                // console.log(el1,el2);
                dead = true;
@@ -218,6 +255,36 @@ define(['Phaser','SineWaves','MyGame'], function(Phaser, SineWaves, MyGame) {
               game.camera.follow(null);
               game.add.tween(game.camera).to( { x: 0 }, score*500, 'Quart.easeOut').start();
           },null,this);
+
+		    if (cursors.up.isDown || cursors.right.isDown || wasd.up.isDown || wasd.right.isDown)
+		    {
+		        //  If the shift key is also pressed then the world is rotated
+		        if (shift.isDown)
+		        {
+		        	r += 5;
+		            waveGroup.angle = r;
+		        }
+		        else
+		        {
+		            r += 1;
+		            waveGroup.angle = r;
+		        }
+		    }
+
+		    if (cursors.down.isDown || cursors.left.isDown || wasd.down.isDown || wasd.left.isDown)
+		    {
+		        //  If the shift key is also pressed then the world is rotated
+		        if (shift.isDown)
+		        {
+		        	r -= 5;
+		            waveGroup.angle = r;
+		        }
+		        else
+		        {
+		            r -= 1;
+		            waveGroup.angle = r;
+		        }
+		    }
 
           waveGroup.body.velocity.x = 120;
 
