@@ -39,7 +39,7 @@ gulp.task('scripts', ['lint'], function() {
     requirejs.optimize({
         baseUrl: PATHS.source + PATHS.scripts,
         out: PATHS.build + PATHS.scripts + 'game.min.js',
-        mainConfigFile: PATHS.source + PATHS.scripts + 'main.js',
+        mainConfigFile: PATHS.source + PATHS.scripts + 'config.js',
         include: ['almond', 'main'],
         wrap: {
             startFile: './tasks/_start.js',
@@ -68,7 +68,7 @@ gulp.task('media', function() {
 // Processes "special comments" in HTML files and outputs to build directory
 gulp.task('html', function() {
     return gulp.src(PATHS.source + 'index.html')
-        .pipe(prochtml('index.html'))
+        .pipe(prochtml())
         .pipe(htmlmin({collapseWhitespace: true,minifyCSS:true}))
         .pipe(gulp.dest(PATHS.build));
 });

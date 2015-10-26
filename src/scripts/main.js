@@ -1,22 +1,5 @@
 'use strict';
 
-requirejs.config({
-    baseUrl: './scripts',
-    paths: {
-        almond: '../scripts/bower_components/almond/almond',
-        Phaser: '../scripts/bower_components/phaser/build/phaser',
-        SineWaves: 'game/SineWaves',
-
-        MyGame: 'game/MyGame',
-
-        init: 'game/states/init',
-        loader: 'game/states/loader',
-        gameTitle: 'game/states/gameTitle',
-        gameDesvio: 'game/states/gameDesvio',
-        gameRastro: 'game/states/gameRastro'
-    },
-});
-
 require([
     'Phaser',
     'MyGame',
