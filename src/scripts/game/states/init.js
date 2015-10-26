@@ -103,8 +103,6 @@ define(['Phaser','MyGame'], function(Phaser, MyGame) {
         this.add(this.bar);
     };
 
-    console.log(Phaser);
-
     MyGame.LoadingBar.prototype = Object.create(Phaser.Group.prototype);
     MyGame.LoadingBar.prototype.constructor = MyGame.LoadingBar;
 
