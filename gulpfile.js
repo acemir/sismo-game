@@ -94,7 +94,7 @@ gulp.task('webserver', function() {
 gulp.task('watch', function() {
     gulp.watch(PATHS.source + 'index.html');
     gulp.watch(PATHS.source + PATHS.styles + '**/*.css');
-    gulp.watch(PATHS.source + PATHS.scripts + '**/*.js', ['lint']);
+    gulp.watch([PATHS.source + PATHS.scripts + '**/*.js','!' + PATHS.source + PATHS.scripts + 'bower_components/**'], ['lint']);
     gulp.watch(PATHS.source + PATHS.media + '**/*');
 });
 
