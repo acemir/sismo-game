@@ -139,7 +139,7 @@ you want).
 * [Phaser JS Boilerplate](https://github.com/luizbills/phaser-boilerplate)
 * [Phaser + RequireJS Boilerplate](https://github.com/chessmasterhong/phaser-requirejs-boilerplate)
 
-<!-- ## Licence
+## Licence
 
-Released under the [MIT Licence](LICENCE). -->
+Released under the [MIT Licence](LICENCE).
 
