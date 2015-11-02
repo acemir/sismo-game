@@ -4,7 +4,7 @@ requirejs.config({
     baseUrl: './scripts',
     paths: {
         almond: 'bower_components/almond/almond',
-        Phaser: 'bower_components/phaser/dist/phaser-dist.min',
+        Phaser: 'bower_components/phaser/dist/phaser-dist',
         SineWaves: 'game/SineWaves',
 
         main: 'main',

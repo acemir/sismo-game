@@ -1,8 +1,6 @@
 define(['Phaser','MyGame'], function(Phaser, MyGame) {
     'use strict';
 
-    MyGame.BG = {};
-
     MyGame.GameTitle = function(game) {};
 
 	MyGame.GameTitle.prototype = {
@@ -26,7 +24,7 @@ define(['Phaser','MyGame'], function(Phaser, MyGame) {
 	          
 	          var playTrailBtn = this.add.button(this.game.width / 2 , this.game.height / 2 - 60, playData, function(){this.state.start('GameRastro')}.bind(this));
 	          playTrailBtn.anchor.set(0.5);
-	          var playTrailTxt = this.game.add.text(0, 0, 'Modo Rastro', { font: '3em Arial', fill: '#020028', align: 'center', boundsAlignH: 'center', boundsAlignV: 'middle', wordWrap: true, wordWrapWidth: playData.width });
+	          var playTrailTxt = this.game.add.text(0, 0, 'Modo Rastro', { font: '36px Arial', fill: '#020028', align: 'center', boundsAlignH: 'center', boundsAlignV: 'middle', wordWrap: true, wordWrapWidth: playData.width });
 	          playTrailTxt.anchor.set(0.5);
 	          playTrailBtn.addChild(playTrailTxt);
 	          playTrailBtn.scale.x = 0;
@@ -34,7 +32,7 @@ define(['Phaser','MyGame'], function(Phaser, MyGame) {
 
 	          var playDesvioBtn = this.add.button(this.game.width / 2 , this.game.height / 2 + 60, playData, function(){this.state.start('GameDesvio')}.bind(this));
 	          playDesvioBtn.anchor.set(0.5);
-	          var playDesvioTxt = this.game.add.text(0, 0, 'Modo Desvio', { font: '3em Arial', fill: '#020028', align: 'center', boundsAlignH: 'center', boundsAlignV: 'middle', wordWrap: true, wordWrapWidth: playData.width });
+	          var playDesvioTxt = this.game.add.text(0, 0, 'Modo Desvio', { font: '36px Arial', fill: '#020028', align: 'center', boundsAlignH: 'center', boundsAlignV: 'middle', wordWrap: true, wordWrapWidth: playData.width });
 	          playDesvioTxt.anchor.set(0.5);
 	          playDesvioBtn.addChild(playDesvioTxt);
 	          playDesvioBtn.scale.x = 0;
@@ -42,14 +40,14 @@ define(['Phaser','MyGame'], function(Phaser, MyGame) {
 
 	          var infoGroup = this.add.group();
 
-	          var creditos = this.add.text(this.game.width / 2, this.game.height - 55, '--- Autor ---', { font:'1.6em Arial', fill: '#acacac', align: 'center', boundsAlignH: 'center', boundsAlignV: 'middle'});
+	          var creditos = this.add.text(this.game.width / 2, this.game.height - 55, '--- Autor ---', { font:'18px Arial', fill: '#acacac', align: 'center', boundsAlignH: 'center', boundsAlignV: 'middle'});
 	          creditos.anchor.set(0.5);
 
-	          var author = this.add.text(this.game.width / 2, this.game.height - 30, 'Acemir Sousa Mendes', { font:'2.6em Arial', fill: '#acacac', align: 'center', boundsAlignH: 'center', boundsAlignV: 'middle'});
+	          var author = this.add.text(this.game.width / 2, this.game.height - 30, 'Acemir Sousa Mendes', { font:'28px Arial', fill: '#acacac', align: 'center', boundsAlignH: 'center', boundsAlignV: 'middle'});
 	          author.anchor.set(0.5);
 
 			  var howText = this.game.add.text(this.game.width / 2,this.game.height - 140,'COMO JOGAR\nEvite os círculos vermelhos.\nGire a onda com mouse, teclado ou touch.',{
-			       font:'1.6em Arial',
+			       font:'18px Arial',
 			       fill: '#acacac',
 			       align: 'center', boundsAlignH: 'center', boundsAlignV: 'middle'
 			  });
