@@ -121,7 +121,7 @@ define(['Phaser','SineWaves','MyGame'], function(Phaser, SineWaves, MyGame) {
                   alpha: 1    
                 }, 1000, Phaser.Easing.Linear.None, true).onComplete.add(function(){
                     this.state.start('GameTitle');
-                }, this);;
+                }, this);
             }
         }
     };
