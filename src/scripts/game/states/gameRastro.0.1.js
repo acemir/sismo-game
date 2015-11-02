@@ -9,12 +9,7 @@ define(['Phaser','SineWaves','MyGame'], function(Phaser, SineWaves, MyGame) {
     	pointParticle,
     	trail, trail1, trail2,
     	cursors, wasd, shift, touchAmmount,
-    	r = 0,
-    	startTrail = false;
-
-    var trailTest, trailTestData, trailTestObj;
-    var trailTest2, trailTestData2, trailTestObj2;
-    var trailTest3, trailTestData3, trailTestObj3;
+    	r = 0;
 
     MyGame.GameRastro = function(game) {};
 
@@ -26,6 +21,7 @@ define(['Phaser','SineWaves','MyGame'], function(Phaser, SineWaves, MyGame) {
 		MyGame.BG.starfield.velocity(0,0.001);
       },
 	  create: function(){
+
 	  	MyGame.BG.starfield.run();
 
 	    score = 0;
@@ -37,11 +33,11 @@ define(['Phaser','SineWaves','MyGame'], function(Phaser, SineWaves, MyGame) {
 	    waves = MyGame.PLAYER.waves;
 	    waves.options.speed = 8;
 
-	    // game.world.setBounds(0, 0, 20000, game.height);
+	    game.world.setBounds(0, 0, 20000, game.height);
 
 
-	    playerData = game.add.bitmapData(16,16);
-	    playerData.circle(8,8,8, '#FFFFFF');
+	    playerData = game.add.bitmapData(4,4);
+	    playerData.circle(2,2,2, '#FFFFFF');
 
 	    // ENEMY
 		scoreText = game.add.text(game.width/2,game.height/2,score,{
@@ -52,22 +48,14 @@ define(['Phaser','SineWaves','MyGame'], function(Phaser, SineWaves, MyGame) {
 		scoreText.alpha = .1;
 		scoreText.fixedToCamera = true;
 		scoreText.anchor.setTo(0.5);
-    
-	    // TRAILS
-		// trail = game.add.graphics(0,0);
-		// trail1 = game.add.graphics(0,0);
-		// trail2 = game.add.graphics(0,0);
-
-		trailTestData = game.add.bitmapData(game.world.width,game.world.height);
-		trailTest = game.add.sprite(0, 0, trailTestData);
-		trailTestData2 = game.add.bitmapData(game.world.width,game.world.height);
-		trailTest2 = game.add.sprite(0, 0, trailTestData2);
-		trailTestData3 = game.add.bitmapData(game.world.width,game.world.height);
-		trailTest3 = game.add.sprite(0, 0, trailTestData3);
 
 		// ENEMY
 	    enemyGroup = game.add.group();
-	
+	    
+	    // TRAILS
+		trail = game.add.graphics(0,0);
+		trail1 = game.add.graphics(0,0);
+		trail2 = game.add.graphics(0,0);
 
 		// WAVE + PLAYER
 		waveGroup = game.add.sprite(game.width/2,game.height/2, game.add.bitmapData(waveW,waveW));
@@ -174,18 +162,47 @@ define(['Phaser','SineWaves','MyGame'], function(Phaser, SineWaves, MyGame) {
           thankYou.fixedToCamera = true;
           menuGroup.add(thankYou);
 
+          trail.lineStyle(2, 0x0000FF, 1);
+          trail.moveTo(playerSprite.world.x,playerSprite.world.y);
+
+          trail1.lineStyle(2, 0x00FF00, 1);
+          trail1.moveTo(playerSpriteLeft.world.x,playerSpriteLeft.world.y);
+
+          trail2.lineStyle(2, 0x00FFFF, 1);
+          trail2.moveTo(playerSpriteRight.world.x,playerSpriteRight.world.y);
+
+          trail.alpha = 0;
+          trail1.alpha = 0;
+          trail2.alpha = 0;
+
+          game.time.events.add(Phaser.Timer.SECOND * .5, function(){
+
+            trail.clear();
+            trail.lineStyle(2, 0x0000FF, 1);
+
+            trail1.clear();
+            trail1.lineStyle(2, 0x00FF00, 1);
+
+            trail2.clear();
+            trail2.lineStyle(2, 0x00FFFF, 1);
+
+            game.add.tween(trail).to({
+              alpha: 1    
+            }, 2000, Phaser.Easing.Default, true);
+            game.add.tween(trail1).to({
+              alpha: 1    
+            }, 2000, Phaser.Easing.Default, true);
+            game.add.tween(trail2).to({
+              alpha: 1    
+            }, 2000, Phaser.Easing.Default, true);
+
+
+          }, this).autoDestroy = true;
+
+
+          game.camera.follow(waveGroup);
 
           game.time.events.loop(Phaser.Timer.SECOND, updateScore, this);
-          game.time.events.add(Phaser.Timer.QUARTER, function(){
-			trailTestObj = new MyGame.createTrail();
-			trailTestObj.init(trailTestData);
-			trailTestObj2 = new MyGame.createTrail();
-			trailTestObj2.init(trailTestData2);
-			trailTestObj3 = new MyGame.createTrail();
-			trailTestObj3.init(trailTestData3);
-          	startTrail = true;
-          }, this);
-
 
 	  },
 	  update: function(){
@@ -220,7 +237,8 @@ define(['Phaser','SineWaves','MyGame'], function(Phaser, SineWaves, MyGame) {
 		        }
 		    }
 
-          // waveGroup.body.velocity.x = 120;
+          waveGroup.body.velocity.x = 120;
+
           MyGame.BG.starfield.run();
           waves.update();
 
@@ -244,15 +262,9 @@ define(['Phaser','SineWaves','MyGame'], function(Phaser, SineWaves, MyGame) {
           wavesData.dirty = true;
           playerData.dirty = true;
 
-          if (startTrail) {
-	          trailTestObj.loop(playerSprite.world.x,playerSprite.world.y);
-	          trailTestObj2.loop(playerSpriteLeft.world.x,playerSpriteLeft.world.y);
-	          trailTestObj3.loop(playerSpriteRight.world.x,playerSpriteRight.world.y);
-          }
-
-          // trail.lineTo(playerSprite.world.x,playerSprite.world.y);
-          // trail1.lineTo(playerSpriteLeft.world.x,playerSpriteLeft.world.y);
-          // trail2.lineTo(playerSpriteRight.world.x,playerSpriteRight.world.y);
+          trail.lineTo(playerSprite.world.x,playerSprite.world.y);
+          trail1.lineTo(playerSpriteLeft.world.x,playerSpriteLeft.world.y);
+          trail2.lineTo(playerSpriteRight.world.x,playerSpriteRight.world.y);
 
           // if (game.input.activePointer.isDown) {
           //   game.camera.follow(null);
@@ -268,8 +280,19 @@ define(['Phaser','SineWaves','MyGame'], function(Phaser, SineWaves, MyGame) {
           //   game.origDragPoint = null;
           // }
 
+          game.physics.arcade.overlap([playerSprite,playerSpriteLeft,playerSpriteRight], enemyGroup, function(el1,el2){
+               // console.log(el1,el2);
+               dead = true;
+               scoreText.alpha = 1;
+               scoreText.parent.bringToTop(scoreText);
+               menuGroup.alpha = 1;
+               var menuTween = game.add.tween(menuGroup).to({
+                    y: -180     
+               }, 500, Phaser.Easing.Bounce.Out, true);
 
-          game.physics.arcade.overlap([playerSprite,playerSpriteLeft,playerSpriteRight], enemyGroup, enemyCollide,null,this);
+              game.camera.follow(null);
+              game.add.tween(game.camera).to( { x: 0 }, score*500, 'Quart.easeOut').start();
+          },null,this);
 
 	  },
 	  render: function(){
@@ -287,7 +310,7 @@ define(['Phaser','SineWaves','MyGame'], function(Phaser, SineWaves, MyGame) {
 	     game.physics.arcade.enable(enemySprite);
 	     
 	     // enemySprite.body.velocity.y = 250;
-	     enemySprite.body.velocity.x = -120;
+	     // enemySprite.body.velocity.x = 250;
 
 	     // enemySprite.body.bounce.y = 1;
 	     // enemySprite.body.bounce.x = 1;
@@ -297,28 +320,6 @@ define(['Phaser','SineWaves','MyGame'], function(Phaser, SineWaves, MyGame) {
 
 	function updateScore(){
 		if (!dead) scoreText.setText(++score);
-	}
-
-	function enemyCollide(player,enemy){
-	   enemy.kill();
-	   MyGame.EXPLOSION.play();
-	   // console.log(el1,el2);
-	   var explosion = game.add.sprite(0, 0, 'kaboom');
-	   explosion.anchor.set(0.5);
-	   explosion.reset(enemy.body.x, enemy.body.y);
-	   explosion.animations.add('boom');
-	   explosion.play('boom', 48, false, true);
-
-	   dead = true;
-	   scoreText.alpha = 1;
-	   scoreText.parent.bringToTop(scoreText);
-	   menuGroup.alpha = 1;
-	   var menuTween = game.add.tween(menuGroup).to({
-	        y: -180     
-	   }, 500, Phaser.Easing.Bounce.Out, true);
-
-	  // game.camera.follow(null);
-	  // game.add.tween(game.camera).to( { x: 0 }, score*500, 'Quart.easeOut').start();
 	}
 	
 	return MyGame.GameRastro;

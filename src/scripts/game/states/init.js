@@ -39,7 +39,7 @@ define(['Phaser','MyGame'], function(Phaser, MyGame) {
         this.scale.pageAlignHorizontally = true;
         this.scale.pageAlignVertically = true;
 
-        this.stage.backgroundColor = '#020028';
+        this.stage.backgroundColor = '#00000';
 
         if (!this.game.device.desktop) {
             this.scale.forceOrientation(true, false); // Landscape
@@ -55,8 +55,8 @@ define(['Phaser','MyGame'], function(Phaser, MyGame) {
         // this.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1/webfont.js');
 
         // Load images for use in Loader state.
-        this.load.image('loadingBar', 'media/images/loading-bar.png');
-        this.load.image('loadingBarBg', 'media/images/loading-bar-bg.png');
+        // this.load.image('loadingBar', 'media/images/loading-bar.png');
+        // this.load.image('loadingBarBg', 'media/images/loading-bar-bg.png');
 
     }
 
@@ -91,12 +91,12 @@ define(['Phaser','MyGame'], function(Phaser, MyGame) {
         Phaser.Group.call(this, game, parent);
 
         // Images loaded by MyGame.Init
-        this.background = game.add.sprite(game.world.centerX, game.world.centerY, 'loadingBarBg');
-        this.background.anchor.setTo(0.5, 0.5);
-        this.add(this.background);
+        // this.background = game.add.sprite(game.world.centerX, game.world.centerY, 'loadingBarBg');
+        // this.background.anchor.setTo(0.5, 0.5);
+        // this.add(this.background);
 
         // Left to right loading bar
-        this.bar = game.add.sprite(game.world.centerX - 175, game.world.centerY - 16, 'loadingBar');
+        this.bar = game.add.sprite(game.world.centerX, game.world.centerY, game.add.bitmapData(game.width,6).fill(255, 255, 255, 1));
         // Center to outsides loading bar.
         //this.bar = game.add.sprite(game.world.centerX, game.world.centerY, 'loadingBar');
         //this.bar.anchor.setTo(0.5, 0.5);
