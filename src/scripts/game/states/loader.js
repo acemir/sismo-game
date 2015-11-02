@@ -79,7 +79,7 @@ define(['Phaser','SineWaves','MyGame'], function(Phaser, SineWaves, MyGame) {
 
             // Make your loading bar any color!
             // this.loadingBar.background.tint = 0x7edcfc;
-            this.loadingBar.bar.tint = 0x320126;
+            // this.loadingBar.bar.tint = 0x320126;
             this.loadingBar.bar.anchor.setTo(0.5, 0.5);
 
 
@@ -96,8 +96,6 @@ define(['Phaser','SineWaves','MyGame'], function(Phaser, SineWaves, MyGame) {
         },
         create: function() {
             MyGame.BG.starfield.run();
-            MyGame.MUSIC = this.add.audio('music',1,true);
-            MyGame.EXPLOSION = this.add.audio('xplosion',0.5);
             this.loadingBar.bar.cropEnabled = false;
         }, 
         update: function() {
@@ -106,6 +104,8 @@ define(['Phaser','SineWaves','MyGame'], function(Phaser, SineWaves, MyGame) {
             if (this.cache.isSoundDecoded('music') && this.ready === false) {
                this.ready = true;
 
+               MyGame.MUSIC = this.add.audio('music',1,true);
+               MyGame.EXPLOSION = this.add.audio('xplosion',0.5);
                MyGame.MUSIC.play();
 
                 this.add.tween(this.loadingBar.bar).to({

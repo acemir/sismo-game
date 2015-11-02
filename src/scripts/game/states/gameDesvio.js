@@ -98,35 +98,30 @@ define(['Phaser','SineWaves','MyGame'], function(Phaser, SineWaves, MyGame) {
 
 	    }
 
-	    game.input.touch.touchStartCallback = function(event){
-	    	touchAmmount = event.touches[0].clientX;
-	    };
+	    game.input.onDown.add(function(event){
+	    	// console.log('down');
+	    	touchAmmount = game.input.x;
+	    });
+
+	    game.input.onUp.add(function(event){
+	    	// console.log('up');
+	    	r = waveGroup.angle;
+	    });
+
+		game.input.mouse.mouseMoveCallback = function(event) {
+			// console.log('move');
+			if (game.input.activePointer.isDown) {
+		    	var ammount = -(touchAmmount - game.input.x);
+		    	var rot = r + ammount > 360 ? r + ammount - 360 : r + ammount < 0 ? r + ammount + 360 : r + ammount;
+		    	waveGroup.angle = rot;
+	    	}
+		};
 
 	    game.input.touch.touchMoveCallback = function(event){
-	    	var ammount = -(touchAmmount - event.touches[0].clientX);
+	    	var ammount = -(touchAmmount - game.input.x);
 	    	var rot = r + ammount > 360 ? r + ammount - 360 : r + ammount < 0 ? r + ammount + 360 : r + ammount;
 	    	waveGroup.angle = rot;    
 	    };
-
-	    game.input.touch.touchEndCallback = function(event){
-	    	r = waveGroup.angle;
-	    };
-
-	    game.input.mouse.mouseDownCallback = function(event){
-	    	touchAmmount = event.clientX;
-	    };
-
-	    game.input.mouse.mouseUpCallback = function(event){
-	    	r = waveGroup.angle;
-	    };
-
-		game.input.addMoveCallback(function(pointer, x, y) {
-		  if (pointer.isMouse && pointer.isDown) {
-	    	var ammount = -(touchAmmount - event.clientX);
-	    	var rot = r + ammount > 360 ? r + ammount - 360 : r + ammount < 0 ? r + ammount + 360 : r + ammount;
-	    	waveGroup.angle = rot;
-		  }
-		});
 
 	    menuGroup = game.add.group();
 	    menuGroup.alpha = 0;
@@ -138,6 +133,7 @@ define(['Phaser','SineWaves','MyGame'], function(Phaser, SineWaves, MyGame) {
 	    });
 	    resetGame.anchor.set(0.5);
 	    menuGroup.add(resetGame);
+	    
 	    var thankYou = game.add.button(game.width / 2, game.height + 140, 'thankyou', function(){
 	    	game.state.start('GameTitle');
 	    });
@@ -247,7 +243,7 @@ define(['Phaser','SineWaves','MyGame'], function(Phaser, SineWaves, MyGame) {
 		// console.log(el1,el2);
 		dead = true;
 		scoreText.alpha = 1;
-		scoreText.parent.bringToTop(scoreText);
+		// scoreText.parent.bringToTop(scoreText);
 		menuGroup.alpha = 1;
 		var menuTween = game.add.tween(menuGroup).to({
 		    y: -180     
