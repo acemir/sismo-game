@@ -32,7 +32,13 @@ Experimental game. [Try it!](http://acemir.github.io/sismo-game)
     npm install && node node_modules/bower/bin/bower install
     ```
 
-4. Done!
+4. Build custom Phaser
+
+    ```
+    grunt custom --exclude gamepad,rendertexture,bitmaptext,retrofont,video,rope,tilesprite,net,debug,ninja,creature,p2,tilemaps,particles --filename phaser-dist --sourcemap true --uglify true
+    ```
+
+5. Done!
 
 
 ## Usage

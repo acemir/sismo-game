@@ -12,56 +12,21 @@ define(['Phaser','SineWaves','MyGame'], function(Phaser, SineWaves, MyGame) {
     MyGame.GameDesvio = function(game) {};
 
 	MyGame.GameDesvio.prototype = {
+	  preload: function() {
+		this.add.sprite(0, 0, MyGame.BG.starfieldData);
+		MyGame.BG.starfield.velocity(0.001,0);
+	  },
 	  create: function(){
+
+	  	MyGame.BG.starfield.run();
 
 	    score = 0;
 	    dead = false;
 	  	game = this.game;
-	    waveW = Math.min(game.width, game.height)/1.5;
-	    wavesData = game.add.bitmapData(waveW,waveW);
-	    waves = new SineWaves({
-	      el: wavesData,
-	      
-	      speed: 6,
-
-	      running: false,
-	      
-	      width: waveW,
-	      
-	      height: waveW,
-	      
-	      ease: 'SineInOut',
-
-	      rotate: 0,
-	      
-	      wavesWidth: '125%',
-	      
-	      waves: [
-	        {
-	          timeModifier: 0,
-	          lineWidth: 2,
-	          amplitude: -150,
-	          wavelength: 80
-	        }
-	      ],
-	     
-	      // Resize
-	      resizeEvent: function() {
-	        // var gradient = this.ctx.createLinearGradient(0, 0, this.width, 0);
-	        // gradient.addColorStop(0,'rgba(255,255,255,1)');
-	        
-	        // var index = -1;
-	        // var length = this.waves.length;
-	        // while(++index < length){
-	        //   this.waves[index].strokeStyle = gradient;
-	        // }
-	        
-	        // // Clean Up
-	        // index = void 0;
-	        // length = void 0;
-	        // gradient = void 0;
-	      }
-	    });
+	    waveW = MyGame.PLAYER.waveW;
+	    wavesData = MyGame.PLAYER.wavesData;
+	    waves = MyGame.PLAYER.waves;
+	    waves.options.speed = 6;
 
 	    game.world.setBounds(0, 0, game.width, game.height);
 
@@ -185,17 +150,6 @@ define(['Phaser','SineWaves','MyGame'], function(Phaser, SineWaves, MyGame) {
 	  },
 	  update: function(){
 
-	      game.physics.arcade.collide([playerSprite,playerSpriteLeft,playerSpriteRight], enemyGroup, function(el1,el2){
-	           // console.log(el1,el2);
-	           dead = true;
-	           scoreText.alpha = 1;
-	           scoreText.parent.bringToTop(scoreText);
-	           menuGroup.alpha = 1;
-	           var menuTween = game.add.tween(menuGroup).to({
-	                y: -180     
-	           }, 500, Phaser.Easing.Bounce.Out, true);
-	      },null,this);
-
 		    if (cursors.up.isDown || cursors.right.isDown || wasd.up.isDown || wasd.right.isDown)
 		    {
 		        //  If the shift key is also pressed then the world is rotated
@@ -231,7 +185,7 @@ define(['Phaser','SineWaves','MyGame'], function(Phaser, SineWaves, MyGame) {
 	      // playerSpriteLeft.body.velocity.x = 60;
 	      // playerSpriteRight.body.velocity.x = 60;
 
-
+		  MyGame.BG.starfield.run();
 	      waves.update();
 
 	      var pointParticle = waves.getPoint(waves.time, waves.waveWidth/2, waves.waves[0]);
@@ -259,6 +213,8 @@ define(['Phaser','SineWaves','MyGame'], function(Phaser, SineWaves, MyGame) {
 	    //     player.body.velocity.y = 60;    
 	    // }
 	    // game.world.resize(game.world.width + player.body.velocity.x, game.world.height);
+
+	      game.physics.arcade.collide([playerSprite,playerSpriteLeft,playerSpriteRight], enemyGroup, enemyCollide,null,this);
 	  },
 	  render: function(){
 	    // game.debug.cameraInfo(game.camera, 32, 32);
@@ -286,6 +242,17 @@ define(['Phaser','SineWaves','MyGame'], function(Phaser, SineWaves, MyGame) {
 	function updateScore(){
 		if (!dead) scoreText.setText(++score);
 	}
+
+	function enemyCollide(el1,el2){
+		// console.log(el1,el2);
+		dead = true;
+		scoreText.alpha = 1;
+		scoreText.parent.bringToTop(scoreText);
+		menuGroup.alpha = 1;
+		var menuTween = game.add.tween(menuGroup).to({
+		    y: -180     
+		}, 500, Phaser.Easing.Bounce.Out, true);
+      }
 
 	return MyGame.GameDesvio;
 });
