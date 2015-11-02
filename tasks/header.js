@@ -1,5 +1,5 @@
 /**
- *  SISMO Prototype v0.1 - @acemir - (c) 2015 Acemir Sousa Mendes
+ *  SISMO Prototype v0.2 - @acemir - (c) 2015 Acemir Sousa Mendes
  *  
  *  Phaser v2.4.4 - http://phaser.io - @photonstorm - (c) 2015 Photon Storm Ltd.
  *

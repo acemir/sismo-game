@@ -1,4 +1,4 @@
-# SISMO Prototype v0.1
+# SISMO Prototype v0.2
 
 Experimental game. [Try it!](http://acemir.github.io/sismo-game)
 
@@ -139,7 +139,7 @@ you want).
 * [Phaser JS Boilerplate](https://github.com/luizbills/phaser-boilerplate)
 * [Phaser + RequireJS Boilerplate](https://github.com/chessmasterhong/phaser-requirejs-boilerplate)
 
-<!-- ## Licence
+## Licence
 
-Released under the [MIT Licence](LICENCE). -->
+Released under the [MIT Licence](LICENCE).
 
