@@ -9,4 +9,7 @@
  *  
  *  sine-waves v0.3.0 <https://github.com/isuttell/sine-waves> Contributor(s): Isaac Suttell <isaac@isaacsuttell.com>
  *  
+ *  Starfield inspired by "Matt & Aims Starfield" Copyright (c) 2015 by Matthew Cowley (http://codepen.io/MattCowley/pen/WQXRwW)
+ *  
+ *  Trail inspired by "Canvas Sparkly Circle Loader" Copyright (c) 2014 by Jack Rugile (http://codepen.io/jackrugile/pen/JAKbg) 
  */
