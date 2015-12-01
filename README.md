@@ -1,7 +1,9 @@
 # SISMO Prototype v0.2
 
 Experimental game.
+
 [Try v0.2!](http://acemir.github.io/sismo-game)
+
 [Try v0.1!](http://acemir.github.io/sismo-game/releases/v0.1)
 
 ## Installation
